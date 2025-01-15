@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set Up Dependencies
       run: |
@@ -23,4 +23,4 @@ jobs:
 
     - name: Build Lazarus Project
       run: |
-        lazbuild --lcl-gtk2 --ws gtk2 --cpu aarch64 --os linux --verbose your_project.lpi
+        lazbuild --lcl-gtk2 --ws gtk2 --cpu aarch64 --os linux --verbose ./src/liblcl.lpi
