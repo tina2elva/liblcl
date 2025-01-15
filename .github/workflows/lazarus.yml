@@ -24,3 +24,9 @@ jobs:
     - name: Build Lazarus Project
       run: |
         lazbuild --lcl-gtk2 --ws gtk2 --cpu aarch64 --os linux --verbose ./src/liblcl.lpi
+
+    - name: Upload files to Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: snapshot_release
+        path: bin
