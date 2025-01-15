@@ -1,0 +1,26 @@
+name: Build Lazarus Project
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set Up Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y lazarus fpc libgtk2.0-dev libpango1.0-dev libcairo2-dev
+
+    - name: Build Lazarus Project
+      run: |
+        lazbuild --lcl-gtk2 --ws gtk2 --cpu aarch64 --os linux --verbose your_project.lpi
