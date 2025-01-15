@@ -23,7 +23,7 @@ jobs:
 
     - name: Build Lazarus Project
       run: |
-        lazbuild --ws gtk2 --cpu aarch64 --os linux --verbose ./src/liblcl.lpi
+        lazbuild --cpu=x86_64 --os=linux --verbose ./src/liblcl.lpi
 
     - name: Upload files to Artifacts
       uses: actions/upload-artifact@v4
