@@ -21,6 +21,25 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y lazarus fpc libgtk2.0-dev libpango1.0-dev libcairo2-dev
 
+    - name: Download Cross-Compilation Tools
+      run: |
+        mkdir -p ~/cross-compiler
+        wget https://sourceforge.net/projects/lazarus/files/Lazarus%20Windows%20x64%20cross%20compilers/3.2.2/lazarus-cross-3.2.2-aarch64-linux.tar.xz
+        tar -xvf lazarus-cross-3.2.2-aarch64-linux.tar.xz -C ~/cross-compiler
+
+    - name: Copy Additional Libraries
+      run: |
+        mkdir -p ~/cross-compiler/lib/aarch64-linux-gnu
+        cp -r your_project/libraries/aarch64-linux-gnu/* ~/cross-compiler/lib/aarch64-linux-gnu/
+
+    - name: Set Up Cross-Compilation Environment
+      run: |
+        export PATH=~/cross-compiler/bin/aarch64-linux-gnu:$PATH
+        export FPCFPMAKEOPTS="-XP~/cross-compiler/bin/aarch64-linux-gnu-"
+        export LCL_PLATFORM=gtk2
+        export LCL_CROSSCOMPILING=1
+        export FPC_TARGET=aarch64-linux
+
     - name: Build Lazarus Project
       run: |
         lazbuild --cpu=aarch64 --os=linux --verbose ./src/liblcl.lpi
